@@ -665,6 +665,7 @@ module.exports = class GitSync {
         log.debug(`[WORKITEM: ${workItem.id}] Repo:`, repo);
 
         return client.getWorkItem(workItem.id, ["System.Title", "System.Description", "System.State", "System.ChangedDate"]).then(async (wiObj) => {
+            log.debug(`[WORKITEM: ${workItem.id}] WorkItem:`, wiObj);
             let parsed = wiObj.fields["System.Title"].match(/^GH\s#(?<number>\d+):\s(?<title>.*)/);
 
             let issue_number = parsed.groups.number;
