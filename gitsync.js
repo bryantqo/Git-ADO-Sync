@@ -668,6 +668,11 @@ module.exports = class GitSync {
             log.debug(`[WORKITEM: ${workItem.id}] WorkItem:`, wiObj);
             let parsed = wiObj.fields["System.Title"].match(/^GH\s#(?<number>\d+):\s(?<title>.*)/);
 
+            if(!parsed) {
+                log.warn(`[WORKITEM: ${workItem.id}] WorkItem title does not match expected format. Skipping...`);
+                return null;
+            }
+
             let issue_number = parsed.groups.number;
             log.debug(`[WORKITEM: ${workItem.id} / ISSUE: ${issue_number}] Issue Number:`, issue_number);
 
